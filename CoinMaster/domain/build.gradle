@@ -1,0 +1,13 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+def configuration = rootProject.ext
+
+dependencies {
+    def dependencies = configuration.dependencies
+    implementation dependencies.kotlin
+    implementation dependencies.rxJava
+}
+
+sourceCompatibility = configuration.java_version
+targetCompatibility = configuration.java_version
