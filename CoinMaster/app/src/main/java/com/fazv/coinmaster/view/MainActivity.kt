@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.fazv.coinmaster.MainApplication
 import com.fazv.coinmaster.R
-import com.fazv.coinmaster.extension.changeVisibility
-import com.fazv.coinmaster.model.StateError
-import com.fazv.coinmaster.model.StateLoading
-import com.fazv.coinmaster.model.StateSuccess
+import com.fazv.utils.extension.changeVisibility
+import com.fazv.data.model.StateError
+import com.fazv.data.model.StateLoading
+import com.fazv.data.model.StateSuccess
 import com.fazv.coinmaster.utils.decimalMaskAutoFormat
 import com.fazv.coinmaster.utils.formatDoubleToString
 import com.fazv.coinmaster.utils.formatStringToDouble

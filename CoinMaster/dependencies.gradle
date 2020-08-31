@@ -1,5 +1,7 @@
 ext {
     //Android configurations
+    version_code = 1
+    version_name = "1.0"
     min_sdk_version = 21
     target_sdk_version = 29
     compile_sdk_version = 29
@@ -35,27 +37,37 @@ ext {
     junit_instrumentation_version = "1.1.1"
     espresso_version = "3.2.0"
 
-    dependencies = [
-            recyclerView       : "androidx.recyclerview:recyclerview:$recycler_view_version",
-            androidMaterial    : "com.google.android.material:material:$material_version",
-            kotlin             : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
-            coreKtx            : "androidx.core:core-ktx:$core_ktx_version",
-            appCompat          : "androidx.appcompat:appcompat:$app_compat_version",
-            constraintLayout   : "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
-            gson               : "com.google.code.gson:gson:$gson_version",
-            retrofit           : "com.squareup.retrofit2:retrofit:$retrofit_version",
-            gsonConverter      : "com.squareup.retrofit2:converter-gson:$gson_converter_version",
-            rxJavaAdapter      : "com.squareup.retrofit2:adapter-rxjava2:$rx_adapter_version",
-            loggingInterceptor : "com.squareup.okhttp3:logging-interceptor:$okhttp_interceptor_version",
-            viewModel          : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
-            liveData           : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
-            rxAndroid          : "io.reactivex.rxjava2:rxandroid:$rx_android_version",
-            rxJava             : "io.reactivex.rxjava2:rxjava:$rx_java_version",
-            rxKotlin           : "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version",
-            dagger             : "com.google.dagger:dagger:$dagger_version",
-            daggerCompiler     : "com.google.dagger:dagger-compiler:$dagger_version",
-            junit              : "junit:junit:$junit_version",
+    generic = [
+            recyclerView    : "androidx.recyclerview:recyclerview:$recycler_view_version",
+            androidMaterial : "com.google.android.material:material:$material_version",
+            appCompat       : "androidx.appcompat:appcompat:$app_compat_version",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
+            gson            : "com.google.code.gson:gson:$gson_version",
+            viewModel       : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            liveData        : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+    ]
+    base = [
+            kotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+            coreKtx         : "androidx.core:core-ktx:$core_ktx_version",
+    ]
+    di = [
+            dagger          : "com.google.dagger:dagger:$dagger_version",
+            daggerCompiler  : "com.google.dagger:dagger-compiler:$dagger_version"
+    ]
+    network = [
+            retrofit          : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            gsonConverter     : "com.squareup.retrofit2:converter-gson:$gson_converter_version",
+            rxJavaAdapter     : "com.squareup.retrofit2:adapter-rxjava2:$rx_adapter_version",
+            loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttp_interceptor_version"
+    ]
+    reactivex = [
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:$rx_android_version",
+            rxJava   : "io.reactivex.rxjava2:rxjava:$rx_java_version",
+            rxKotlin : "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+    ]
+    test = [
+            junit               : "junit:junit:$junit_version",
             junitInstrumentation: "androidx.test.ext:junit:$junit_instrumentation_version",
-            espresso           : "androidx.test.espresso:espresso-core:$espresso_version"
+            espresso            : "androidx.test.espresso:espresso-core:$espresso_version"
     ]
 }

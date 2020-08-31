@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -6,21 +6,15 @@ apply plugin: 'kotlin-kapt'
 android {
     def versions = rootProject.ext
     compileSdkVersion versions.compile_sdk_version
-    flavorDimensions "version"
 
     defaultConfig {
-        applicationId "com.fazv.coinmaster"
         minSdkVersion versions.min_sdk_version
         targetSdkVersion versions.target_sdk_version
         versionCode versions.version_code
         versionName versions.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility versions.java_version
-        targetCompatibility versions.java_version
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -33,24 +27,17 @@ android {
             debuggable true
         }
     }
-    productFlavors {
-        dev {
-            dimension "version"
-            versionNameSuffix " - dev"
-            buildConfigField("String", "CURRENCYLAYER_URL_BASE", "\"http://api.currencylayer.com/\"")
-            buildConfigField("String", "CURRENCYLAYER_ACCESS_KEY", "\"b7c97396f04eebec8ebaf3a70c004cce\"")
-        }
-    }
 }
 
 dependencies {
-
-    def config = rootProject.ext
+    def dependencies = rootProject.ext
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation config.generic.values()
-    implementation config.base.values()
-    kapt config.di.values()
-    testImplementation config.test.values()
-    androidTestImplementation config.test.values()
+    implementation dependencies.base.values()
+    implementation dependencies.generic.gson
+    implementation dependencies.reactivex.values()
+    implementation dependencies.network.values()
+    implementation project(":domain")
+    implementation project(":utils")
+    kapt dependencies.di.values()
 }

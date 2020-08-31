@@ -2,12 +2,12 @@ package com.fazv.coinmaster.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fazv.coinmaster.model.StateError
-import com.fazv.coinmaster.model.StateLoading
-import com.fazv.coinmaster.model.StateResponse
-import com.fazv.coinmaster.model.StateSuccess
-import com.fazv.coinmaster.model.vo.CurrenciesListVO
-import com.fazv.coinmaster.usecase.GetCurrenciesListUseCase
+import com.fazv.data.model.StateError
+import com.fazv.data.model.StateLoading
+import com.fazv.data.model.StateResponse
+import com.fazv.data.model.StateSuccess
+import com.fazv.data.model.vo.CurrenciesListVO
+import com.fazv.domain.usecase.GetCurrenciesListUseCase
 
 class CoinListViewModel(
     private val currenciesListUseCase: GetCurrenciesListUseCase

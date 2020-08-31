@@ -3,8 +3,8 @@ apply plugin: 'kotlin'
 
 dependencies {
     def dependencies = rootProject.ext
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation dependencies.base.values()
-    implementation dependencies.reactivex.values()
 }
 
 sourceCompatibility = rootProject.ext.java_version
