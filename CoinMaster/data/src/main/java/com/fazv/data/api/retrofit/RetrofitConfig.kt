@@ -1,6 +1,7 @@
 package com.fazv.data.api.retrofit
 
 import com.fazv.data.BuildConfig
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,17 +26,34 @@ class RetrofitConfig {
     private fun getHttpClient(): OkHttpClient =
         OkHttpClient
             .Builder()
-            .addInterceptor(getInterceptor())
+            .addInterceptor(getHttpLoggingInterceptor())
+            .addNetworkInterceptor(getHttpInterceptor())
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
             .build()
 
-    private fun getInterceptor(): HttpLoggingInterceptor =
+    private fun getHttpLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor()
             .apply {
                 level = getInterceptorLevel()
             }
+
+    private fun getHttpInterceptor() = Interceptor { chain ->
+        val originalRequest = chain.request()
+        val httpUrl = originalRequest.url()
+
+        val url = httpUrl
+            .newBuilder()
+            .addQueryParameter(ACCESS_KEY_QUERY, BuildConfig.CURRENCYLAYER_ACCESS_KEY)
+            .build()
+
+        val requestBuilder = originalRequest
+            .newBuilder()
+            .url(url)
+
+        chain.proceed(requestBuilder.build())
+    }
 
     private fun getInterceptorLevel() =
         if (BuildConfig.DEBUG) {
@@ -46,5 +64,6 @@ class RetrofitConfig {
 
     companion object {
         const val TIMEOUT = 60L
+        const val ACCESS_KEY_QUERY = "access_key"
     }
 }
