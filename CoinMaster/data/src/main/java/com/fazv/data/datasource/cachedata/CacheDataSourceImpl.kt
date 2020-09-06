@@ -23,7 +23,7 @@ class CacheDataSourceImpl(
             }
     }
 
-    override fun getCurrenciesList(): Single<CurrenciesListDTO> =
+    override fun getCurrenciesList(): Single<List<CurrenciesListDTO>> =
         currenciesListDAO
             .getCurrenciesList()
             .map {

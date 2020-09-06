@@ -11,7 +11,7 @@ import io.reactivex.Single
 @Dao
 interface CurrenciesListDAO {
     @Query("SELECT * from $CURRENCIES_TABLE_NAME")
-    fun getCurrenciesList(): Single<CurrenciesListCache>
+    fun getCurrenciesList(): Single<List<CurrenciesListCache>>
 
     @Transaction
     fun updateData(currencies: CurrenciesListCache) {

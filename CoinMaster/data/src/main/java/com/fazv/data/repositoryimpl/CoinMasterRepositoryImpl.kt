@@ -1,32 +1,52 @@
 package com.fazv.data.repositoryimpl
 
-import com.fazv.data.api.CoinMasterApi
-import com.fazv.data.mapper.CurrenciesListMapper
-import com.fazv.data.mapper.CurrencyMapper
+import com.fazv.data.datasource.cachedata.CacheDataSource
+import com.fazv.data.datasource.remotedata.RemoteDataSource
 import com.fazv.domain.entities.CurrenciesListDTO
 import com.fazv.domain.repository.CurrencyRepository
 import com.fazv.utils.extension.makeRequest
 import io.reactivex.Single
 
 class CoinMasterRepositoryImpl(
-    private val serviceApi: CoinMasterApi
+    private val cacheDataSource: CacheDataSource,
+    private val remoteDataSource: RemoteDataSource
 ) : CurrencyRepository {
 
-    override fun getCurrenciesList(): Single<CurrenciesListDTO> =
-        makeRequest {
-            serviceApi
+    override fun getCurrenciesList(shouldUpdate: Boolean): Single<CurrenciesListDTO> {
+        return if (shouldUpdate) {
+            getCurrenciesFromRemote(shouldUpdate)
+        } else {
+            cacheDataSource
                 .getCurrenciesList()
-                .map {
-                    CurrenciesListMapper().map(it)
+                .flatMap { currencies ->
+                    handleCurrenciesFromCache(currencies)
                 }
         }
+    }
+
+    private fun getCurrenciesFromRemote(shouldUpdate: Boolean): Single<CurrenciesListDTO> {
+        return remoteDataSource
+            .getCurrenciesList()
+            .flatMap { currencies ->
+                if (shouldUpdate) {
+                    cacheDataSource.updateData(currencies)
+                } else {
+                    cacheDataSource.insert(currencies)
+                }
+                Single.just(currencies)
+            }
+    }
+
+    private fun handleCurrenciesFromCache(currencies: List<CurrenciesListDTO>): Single<CurrenciesListDTO> {
+        return if (currencies.isEmpty()) {
+            remoteDataSource.getCurrenciesList()
+        } else {
+            Single.just(currencies.first())
+        }
+    }
 
     override fun getCurrency(coin: String): Single<CurrenciesListDTO> =
         makeRequest {
-            serviceApi
-                .getCurrency(coin)
-                .map {
-                    CurrencyMapper().map(it)
-                }
+            remoteDataSource.getCurrency(coin)
         }
 }

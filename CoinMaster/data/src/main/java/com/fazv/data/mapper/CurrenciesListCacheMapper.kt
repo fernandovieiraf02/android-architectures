@@ -5,6 +5,9 @@ import com.fazv.domain.entities.CurrenciesListDTO
 
 class CurrenciesListCacheMapper {
 
+    fun map(currenciesListCache: List<CurrenciesListCache>): List<CurrenciesListDTO> =
+        currenciesListCache.map { map(it) }
+
     fun map(currenciesListCache: CurrenciesListCache): CurrenciesListDTO = currenciesListCache
         .run {
             CurrenciesListDTO(

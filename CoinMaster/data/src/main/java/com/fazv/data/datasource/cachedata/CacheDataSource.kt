@@ -6,5 +6,5 @@ import io.reactivex.Single
 interface CacheDataSource {
     fun insert(currenciesListDTO: CurrenciesListDTO)
     fun updateData(currenciesListDTO: CurrenciesListDTO)
-    fun getCurrenciesList(): Single<CurrenciesListDTO>
+    fun getCurrenciesList(): Single<List<CurrenciesListDTO>>
 }
