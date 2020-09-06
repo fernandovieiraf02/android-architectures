@@ -47,12 +47,13 @@ dependencies {
     def dependencies = rootProject.ext
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":domain")
+    implementation project(":utils")
     implementation dependencies.base.values()
     implementation dependencies.generic.gson
     implementation dependencies.reactivex.values()
     implementation dependencies.network.values()
-    implementation project(":domain")
-    implementation project(":utils")
-    implementation dependencies.di["dagger"]
-    kapt dependencies.di["daggerCompiler"]
+    implementation dependencies.database.values()
+    implementation dependencies.di.dagger
+    kapt dependencies.di.daggerCompiler
 }

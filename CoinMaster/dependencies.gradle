@@ -37,6 +37,9 @@ ext {
     junit_instrumentation_version = "1.1.1"
     espresso_version = "3.2.0"
 
+    //room
+    room_version = '2.1.0-alpha02'
+
     generic = [
             recyclerView    : "androidx.recyclerview:recyclerview:$recycler_view_version",
             androidMaterial : "com.google.android.material:material:$material_version",
@@ -52,6 +55,11 @@ ext {
     di = [
             dagger          : "com.google.dagger:dagger:$dagger_version",
             daggerCompiler  : "com.google.dagger:dagger-compiler:$dagger_version"
+    ]
+    database = [
+            room                  : "androidx.room:room-runtime:$room_version",
+            roomRxJava            : "androidx.room:room-rxjava2:$room_version",
+            roomCompiler          : "androidx.room:room-compiler:$room_version"
     ]
     network = [
             retrofit          : "com.squareup.retrofit2:retrofit:$retrofit_version",
