@@ -6,11 +6,11 @@ import com.fazv.data.model.StateError
 import com.fazv.data.model.StateLoading
 import com.fazv.data.model.StateResponse
 import com.fazv.data.model.StateSuccess
-import com.fazv.data.model.vo.CurrenciesListVO
 import com.fazv.domain.usecase.CalculateTargetValueUseCase
 import com.fazv.domain.usecase.CalculateTargetValueUseCase.Params
 import com.fazv.domain.usecase.GetCurrencyUseCase
 import com.fazv.coinmaster.utils.ConstantUtils.Companion.EMPTY_STRING
+import com.fazv.domain.entities.CurrenciesListDTO
 import java.lang.Exception
 
 class MainViewModel(
@@ -28,9 +28,9 @@ class MainViewModel(
     private var sourceRate: Double = 0.0
     private var targetRate: Double = 0.0
 
-    val currencyLiveData: LiveData<StateResponse<CurrenciesListVO>>
+    val currencyLiveData: LiveData<StateResponse<CurrenciesListDTO>>
         get() = _currencyLiveData
-    private val _currencyLiveData = MutableLiveData<StateResponse<CurrenciesListVO>>()
+    private val _currencyLiveData = MutableLiveData<StateResponse<CurrenciesListDTO>>()
 
     val targetValueLiveData: LiveData<Double>
         get() = _targetValueLiveData
@@ -81,7 +81,7 @@ class MainViewModel(
     }
 
     private fun onSuccess(
-        data: CurrenciesListVO,
+        data: CurrenciesListDTO,
         isSourceCoin: Boolean
     ) {
         _currencyLiveData.postValue(StateSuccess(data))
@@ -92,7 +92,7 @@ class MainViewModel(
         }
     }
 
-    private fun setTargetRate(data: CurrenciesListVO) {
+    private fun setTargetRate(data: CurrenciesListDTO) {
         data.currencies.values
             .firstOrNull()
             ?.let { value ->
@@ -104,7 +104,7 @@ class MainViewModel(
             }
     }
 
-    private fun setSourceRate(data: CurrenciesListVO) {
+    private fun setSourceRate(data: CurrenciesListDTO) {
         data.currencies.values
             .firstOrNull()
             ?.let { value ->

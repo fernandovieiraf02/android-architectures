@@ -40,7 +40,6 @@ ext {
     generic = [
             recyclerView    : "androidx.recyclerview:recyclerview:$recycler_view_version",
             androidMaterial : "com.google.android.material:material:$material_version",
-            appCompat       : "androidx.appcompat:appcompat:$app_compat_version",
             constraintLayout: "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
             gson            : "com.google.code.gson:gson:$gson_version",
             viewModel       : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",

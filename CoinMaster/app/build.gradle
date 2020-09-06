@@ -48,9 +48,14 @@ dependencies {
     def config = rootProject.ext
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":domain")
+    implementation project(":data")
+    implementation project(":utils")
     implementation config.generic.values()
     implementation config.base.values()
-    kapt config.di.values()
+    implementation config.reactivex.values()
+    implementation config.di.dagger
+    kapt config.di.daggerCompiler
     testImplementation config.test.values()
     androidTestImplementation config.test.values()
 }

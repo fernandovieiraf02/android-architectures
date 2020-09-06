@@ -6,19 +6,17 @@ import com.fazv.data.model.StateError
 import com.fazv.data.model.StateLoading
 import com.fazv.data.model.StateResponse
 import com.fazv.data.model.StateSuccess
-import com.fazv.data.model.vo.CurrenciesListVO
+import com.fazv.domain.entities.CurrenciesListDTO
 import com.fazv.domain.usecase.GetCurrenciesListUseCase
 
 class CoinListViewModel(
     private val currenciesListUseCase: GetCurrenciesListUseCase
 ) : BaseViewModel() {
 
-    val currenciesListLiveData: LiveData<StateResponse<CurrenciesListVO>>
+    val currenciesListLiveData: LiveData<StateResponse<CurrenciesListDTO>>
         get() = _currenciesListLiveData
 
-    private val _currenciesListLiveData = MutableLiveData<StateResponse<CurrenciesListVO>>()
-
-    var coinSelected: Pair<String, String>? = null
+    private val _currenciesListLiveData = MutableLiveData<StateResponse<CurrenciesListDTO>>()
 
     fun fetchCurrenciesList() {
         currenciesListUseCase
@@ -30,6 +28,7 @@ class CoinListViewModel(
                 },
                 {
                     _currenciesListLiveData.postValue(StateError(it))
+                    it.printStackTrace()
                 }
             )
             .also { disposables.addAll(it) }

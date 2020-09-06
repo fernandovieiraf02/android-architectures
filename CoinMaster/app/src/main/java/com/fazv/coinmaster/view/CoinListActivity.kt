@@ -9,15 +9,15 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fazv.coinmaster.MainApplication
 import com.fazv.coinmaster.R
-import com.fazv.utils.extension.changeVisibility
 import com.fazv.data.model.StateError
 import com.fazv.data.model.StateLoading
 import com.fazv.data.model.StateResponse
 import com.fazv.data.model.StateSuccess
-import com.fazv.data.model.vo.CurrenciesListVO
 import com.fazv.coinmaster.view.adapter.CoinListAdapter
 import com.fazv.coinmaster.view.adapter.OnItemSelected
 import com.fazv.coinmaster.viewmodel.CoinListViewModel
+import com.fazv.domain.entities.CurrenciesListDTO
+import com.fazv.utils.extension.changeVisibility
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_coin_list.*
 import javax.inject.Inject
@@ -63,7 +63,7 @@ class CoinListActivity : AppCompatActivity(), OnItemSelected {
             })
     }
 
-    private fun handleState(state: StateResponse<CurrenciesListVO>) {
+    private fun handleState(state: StateResponse<CurrenciesListDTO>) {
         enableLoading(false)
         when (state) {
             is StateLoading -> enableLoading(true)
@@ -83,7 +83,7 @@ class CoinListActivity : AppCompatActivity(), OnItemSelected {
             .show()
     }
 
-    private fun setupList(coinList: CurrenciesListVO) {
+    private fun setupList(coinList: CurrenciesListDTO) {
         if (rvCoins.adapter == null) {
             setupRecyclerView()
         }
@@ -95,7 +95,7 @@ class CoinListActivity : AppCompatActivity(), OnItemSelected {
         rvCoins.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun resetList(coinList: CurrenciesListVO) {
+    private fun resetList(coinList: CurrenciesListDTO) {
         adapter.coinList.clear()
         adapter.coinList.addAll(coinList.currencies.toList())
         adapter.notifyDataSetChanged()

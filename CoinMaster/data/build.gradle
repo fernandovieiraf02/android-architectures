@@ -5,7 +5,8 @@ apply plugin: 'kotlin-kapt'
 
 android {
     def versions = rootProject.ext
-    compileSdkVersion versions.compile_sdk_version
+    compileSdkVersion compile_sdk_version
+    flavorDimensions "version"
 
     defaultConfig {
         minSdkVersion versions.min_sdk_version
@@ -17,6 +18,11 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
+    compileOptions {
+        sourceCompatibility versions.java_version
+        targetCompatibility versions.java_version
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,6 +31,14 @@ android {
         debug {
             minifyEnabled false
             debuggable true
+        }
+    }
+    productFlavors {
+        dev {
+            dimension "version"
+            versionNameSuffix " - dev"
+            buildConfigField("String", "CURRENCYLAYER_URL_BASE", "\"http://api.currencylayer.com/\"")
+            buildConfigField("String", "CURRENCYLAYER_ACCESS_KEY", "\"b7c97396f04eebec8ebaf3a70c004cce\"")
         }
     }
 }
@@ -39,5 +53,6 @@ dependencies {
     implementation dependencies.network.values()
     implementation project(":domain")
     implementation project(":utils")
-    kapt dependencies.di.values()
+    implementation dependencies.di["dagger"]
+    kapt dependencies.di["daggerCompiler"]
 }
