@@ -7,8 +7,10 @@ import androidx.room.Transaction
 import com.fazv.data.model.entities.CurrenciesListCache
 import com.fazv.utils.extension.CURRENCIES_TABLE_NAME
 import io.reactivex.Single
+import javax.inject.Singleton
 
 @Dao
+@Singleton
 interface CurrenciesListDAO {
     @Query("SELECT * from $CURRENCIES_TABLE_NAME")
     fun getCurrenciesList(): Single<List<CurrenciesListCache>>

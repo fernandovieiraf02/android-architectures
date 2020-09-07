@@ -7,6 +7,6 @@ import com.fazv.utils.extension.CURRENCIES_TABLE_NAME
 @Entity(tableName = CURRENCIES_TABLE_NAME)
 class CurrenciesListCache (
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val currencies: HashMap<String, String>
+    var id: Int = 0,
+    var currencies: HashMap<String, String> = HashMap()
 )

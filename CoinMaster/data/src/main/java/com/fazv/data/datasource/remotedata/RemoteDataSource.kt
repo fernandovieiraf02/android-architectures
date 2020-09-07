@@ -1,6 +1,5 @@
 package com.fazv.data.datasource.remotedata
 
-import com.fazv.data.model.response.CurrenciesListResponse
 import com.fazv.domain.entities.CurrenciesListDTO
 import io.reactivex.Single
 
