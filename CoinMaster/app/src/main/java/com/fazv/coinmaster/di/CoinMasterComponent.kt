@@ -9,6 +9,7 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
+@Singleton
 @Component(modules = [CoinMasterModule::class, DataModule::class, DomainModule::class])
 interface CoinMasterComponent {
     fun inject(mainActivity: MainActivity)

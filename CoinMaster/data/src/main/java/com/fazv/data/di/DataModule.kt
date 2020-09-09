@@ -44,6 +44,7 @@ class DataModule {
         CoinMasterRepositoryImpl(cacheDataSource, remoteDataSource)
 
     @Provides
+    @Singleton
     fun providesCacheDataSource(
         currenciesListDAO: CurrenciesListDAO
     ): CacheDataSource = CacheDataSourceImpl(currenciesListDAO)
@@ -54,6 +55,7 @@ class DataModule {
     ): RemoteDataSource = RemoteDataSourceImpl(serviceApi)
 
     @Provides
+    @Singleton
     fun providesCurrenciesListDAO(
         context: Application
     ): CurrenciesListDAO =
