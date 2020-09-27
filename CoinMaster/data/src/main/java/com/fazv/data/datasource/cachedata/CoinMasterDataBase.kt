@@ -6,20 +6,22 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.fazv.data.model.entities.CurrenciesListCache
-import dagger.Provides
-import javax.inject.Singleton
 
 @Database(version = 1, entities = [CurrenciesListCache::class])
 @TypeConverters(Converters::class)
-@Singleton
-abstract class CurrenciesListDataBase : RoomDatabase() {
+abstract class CoinMasterDataBase : RoomDatabase() {
 
     abstract fun currenciesListDao(): CurrenciesListDAO
 
     companion object {
-        fun createDataBase(context: Context): CurrenciesListDAO = Room
-            .databaseBuilder(context, CurrenciesListDataBase::class.java, "Currencies.db")
+        private const val DATA_BASE_NAME = "coinmaster.db"
+
+        fun createDataBase(context: Context): CoinMasterDataBase = Room
+            .databaseBuilder(
+                context,
+                CoinMasterDataBase::class.java,
+                DATA_BASE_NAME
+            )
             .build()
-            .currenciesListDao()
     }
 }

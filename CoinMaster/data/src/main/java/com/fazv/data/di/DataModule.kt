@@ -1,13 +1,12 @@
 package com.fazv.data.di
 
 import android.app.Application
-import android.content.Context
 import com.fazv.data.api.CoinMasterApi
 import com.fazv.data.api.retrofit.RetrofitConfig
 import com.fazv.data.datasource.cachedata.CacheDataSource
 import com.fazv.data.datasource.cachedata.CacheDataSourceImpl
 import com.fazv.data.datasource.cachedata.CurrenciesListDAO
-import com.fazv.data.datasource.cachedata.CurrenciesListDataBase
+import com.fazv.data.datasource.cachedata.CoinMasterDataBase
 import com.fazv.data.datasource.remotedata.RemoteDataSource
 import com.fazv.data.datasource.remotedata.RemoteDataSourceImpl
 import com.fazv.data.mapper.CurrenciesListMapper
@@ -56,8 +55,15 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun providesCurrenciesListDAO(
+    fun providesDataBase(
         context: Application
+    ): CoinMasterDataBase =
+        CoinMasterDataBase.createDataBase(context)
+
+    @Provides
+    @Singleton
+    fun providesCurrenciesListDAO(
+        database: CoinMasterDataBase
     ): CurrenciesListDAO =
-        CurrenciesListDataBase.createDataBase(context)
+        database.currenciesListDao()
 }

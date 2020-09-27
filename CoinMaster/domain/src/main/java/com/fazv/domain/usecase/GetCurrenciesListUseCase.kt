@@ -9,5 +9,5 @@ class GetCurrenciesListUseCase(
 ) : UseCase<Unit, Single<CurrenciesListDTO>> {
 
     override fun execute(param: Unit): Single<CurrenciesListDTO> =
-        repository.getCurrenciesList(true)
+        repository.getCurrenciesList(false)
 }

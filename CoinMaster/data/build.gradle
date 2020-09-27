@@ -53,7 +53,7 @@ dependencies {
     implementation dependencies.generic.gson
     implementation dependencies.reactivex.values()
     implementation dependencies.network.values()
-    implementation dependencies.database.values()
+    api dependencies.database.values()
     implementation dependencies.di.dagger
     kapt dependencies.di.daggerCompiler
 }
