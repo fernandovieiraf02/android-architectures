@@ -14,6 +14,7 @@ class MainApplication : Application() {
     }
 
     private fun initDagger() {
+
         component = DaggerCoinMasterComponent
             .builder()
             .application(this)
