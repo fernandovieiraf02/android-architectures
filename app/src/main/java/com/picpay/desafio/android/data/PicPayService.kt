@@ -1,4 +1,4 @@
-package com.picpay.desafio.android
+package com.picpay.desafio.android.data
 
 import retrofit2.Call
 import retrofit2.http.GET

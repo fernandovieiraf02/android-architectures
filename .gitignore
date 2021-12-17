@@ -4,6 +4,8 @@
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
+/.idea/compiler.xml
+/.idea/jarRepositories.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
@@ -11,3 +13,4 @@
 /build
 /captures
 .externalNativeBuild
+/.idea/sonarlint/issuestore/index.pb
