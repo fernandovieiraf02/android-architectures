@@ -6,6 +6,7 @@
 /.idea/modules.xml
 /.idea/compiler.xml
 /.idea/misc.xml
+/.idea/sonarlint
 /.idea/gradle.xml
 /.idea/jarRepositories.xml
 /.idea/workspace.xml
