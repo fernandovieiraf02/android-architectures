@@ -1,21 +1,23 @@
-package com.picpay.desafio.android
+package com.picpay.desafio.android.ui.home
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
-import com.picpay.desafio.android.ui.MainActivity
+import com.picpay.desafio.android.R
+import com.picpay.desafio.android.RecyclerViewMatchers
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
+import org.hamcrest.Matchers.allOf
 import org.junit.Test
+import java.lang.Thread.sleep
 
 
-class MainActivityTest {
+class HomeActivityTest {
 
     private val server = MockWebServer()
 
@@ -23,7 +25,7 @@ class MainActivityTest {
 
     @Test
     fun shouldDisplayTitle() {
-        launchActivity<MainActivity>().apply {
+        launchActivity<HomeActivity>().apply {
             val expectedTitle = context.getString(R.string.title)
 
             moveToState(Lifecycle.State.RESUMED)
@@ -45,11 +47,39 @@ class MainActivityTest {
 
         server.start(serverPort)
 
-        launchActivity<MainActivity>().apply {
-            // TODO("validate if list displays items returned by server")
+        launchActivity<HomeActivity>().apply {
+            moveToState(Lifecycle.State.RESUMED)
         }
+        sleep(2000)
+        shouldDisplayFullNameCorrectly()
+        shouldDisplayUsernameCorrectly()
+        shouldDisplayAvatarImageFromUser()
 
         server.close()
+    }
+
+    private fun shouldDisplayFullNameCorrectly() {
+        RecyclerViewMatchers.checkRecyclerViewItem(
+            R.id.name,
+            0,
+            allOf(withText("Eduardo Santos"), isDisplayed())
+        )
+    }
+
+    private fun shouldDisplayUsernameCorrectly() {
+        RecyclerViewMatchers.checkRecyclerViewItem(
+            R.id.username,
+            0,
+            allOf(withText("@eduardo.santos"), isDisplayed())
+        )
+    }
+
+    private fun shouldDisplayAvatarImageFromUser() {
+        RecyclerViewMatchers.checkRecyclerViewItem(
+            R.id.picture,
+            0,
+            allOf(isDisplayed())
+        )
     }
 
     companion object {
